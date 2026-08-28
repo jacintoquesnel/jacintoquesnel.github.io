@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Postgamificación · kit ejecutivo</title>
+<meta name="description" content="Criterio de demarcación en cinco preguntas para distinguir gamificación de postgamificación, con ejemplos verificables.">
+<style>
+:root{--bg:#FFEAF4;--panel:#FFFAFE;--ink:#331926;--dim:#6B535E;
+--meta:#826E77;--line:#492A39;--sombra:#492A39;--volt:#CCFF00;
+--a1:#FFB9C5;--a2:#FFC5AC;--a3:#F3DA9D;
+--a4:#B5E3C7;--a5:#9FDADC;--a6:#9FCAF0;
+--a7:#C3BAF4;--h1:#8B3D4F;--h5:#00676B;
+color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#251120;--panel:#331E2C;
+--ink:#F8E8EF;--dim:#C0AAB3;--meta:#A6929A;--line:#614253;--sombra:#0F040B}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+font-weight:600;line-height:1.55;padding:clamp(16px,4vw,40px) 16px 60px}
+.w{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:.68rem;letter-spacing:.14em;
+text-transform:uppercase;color:var(--meta);line-height:1.7}
+h1{font-size:clamp(1.5rem,5.4vw,2.3rem);font-weight:900;letter-spacing:-.02em;line-height:1.05}
+h2{font-size:1.02rem;font-weight:900;line-height:1.25}
+.beta{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;
+background:var(--volt);color:#1A1A1A;border:3px solid var(--line);border-radius:999px;
+padding:6px 14px;font-family:ui-monospace,Menlo,monospace;font-size:.66rem;font-weight:800;
+letter-spacing:.14em;box-shadow:3px 3px 0 var(--sombra)}
+.caja{background:var(--panel);border:3px solid var(--line);border-radius:16px;
+box-shadow:4px 4px 0 var(--sombra);padding:16px 18px}
+.lead{font-size:1.04rem;font-weight:700;color:var(--ink)}
+.q{position:relative;padding-left:56px}
+.q .n{position:absolute;left:14px;top:16px;width:30px;height:30px;border-radius:9px;
+border:2.5px solid var(--line);box-shadow:2px 2px 0 var(--sombra);display:grid;place-items:center;
+font-family:ui-monospace,Menlo,monospace;font-weight:900;font-size:.82rem;color:#1A1A1A}
+.q p{margin-top:7px;font-weight:600;color:var(--dim);font-size:.94rem}
+.q .caso{margin-top:9px;padding:9px 12px;border-left:4px solid var(--a5);
+background:color-mix(in oklab,var(--a5) 16%,transparent);border-radius:0 9px 9px 0;
+font-size:.9rem;font-weight:650;color:var(--ink)}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.dos{grid-template-columns:1fr}}
+.vs h3{font-family:ui-monospace,Menlo,monospace;font-size:.66rem;letter-spacing:.14em;
+margin-bottom:8px}
+.vs ul{list-style:none;display:flex;flex-direction:column;gap:6px;font-size:.9rem;font-weight:650}
+.vs li{padding-left:17px;position:relative}
+.vs li::before{content:'';position:absolute;left:0;top:.52em;width:8px;height:8px;border-radius:2px}
+.mala li::before{background:var(--a1)} .buena li::before{background:var(--a5)}
+a{color:var(--h5);font-weight:800}
+footer{color:var(--meta);font-size:.8rem;line-height:1.7;border-top:2px dashed var(--line);padding-top:16px}
+.pie-l{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
+</style><link rel="canonical" href="https://jacintoquesnel.github.io/el-tarjetero/postgamificacion/">
+<meta name="author" content="Jacinto Quesnel Álvarez">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Postgamificación · kit ejecutivo · beta">
+<meta property="og:description" content="Cinco preguntas para distinguir el juego que acompaña del que engancha. El criterio con el que se diseñó EL TARJETERO.">
+<meta property="og:url" content="https://jacintoquesnel.github.io/el-tarjetero/postgamificacion/">
+<meta property="og:locale" content="es_MX">
+</head><body><div class="w">
+<span class="beta">◐ BETA · DOCUMENTO VIVO</span>
+<p class="mono">KIT EJECUTIVO · UNA PÁGINA</p>
+<h1>Postgamificación</h1>
+<p class="lead">La gamificación no falla por usar mecánicas de juego. Falla por a favor
+de quién las usa. La postgamificación conserva el ludus —el azar, el premio, la
+colección, el personaje— y le quita el vector: nadie mide tu regreso, nada te condiciona,
+y el objeto declara lo que no puede hacer.</p>
+<div class="caja"><p style="font-weight:700">Este documento es la versión de una página.
+Se acompaña de dos prototipos donde el criterio está implementado y es auditable
+abriendo el código con F12.</p></div>
+<p class="mono">EL CRITERIO DE DEMARCACIÓN · CINCO PREGUNTAS</p>
+<div class="caja q"><span class="n" style="background:var(--a1)">1</span>
+<h2>¿Hay una conducta objetivo que el refuerzo condicione?</h2><p>La gamificación premia para que hagas algo que el diseño quiere. Si no hay meta del diseño, el mismo mecanismo deja de ser un anzuelo.</p><div class="caso">En el tarjetero el contador solo suma, nunca resta, y el umbral de éxito es uno: con un cuidado ya cuenta.</div></div><div class="caja q"><span class="n" style="background:var(--a2)">2</span>
+<h2>¿El premio es el contenido mismo?</h2><p>Cuando el premio es una moneda, la moneda apunta a otra cosa. Cuando el premio es lo que viniste a buscar, no hay desvío.</p><div class="caso">El corazón no da puntos: da una frase con su fuente. Eso es todo lo que hay, y es lo mismo que ofrece la tarjeta.</div></div><div class="caja q"><span class="n" style="background:var(--a3)">3</span>
+<h2>¿El diseño obtiene algo de que vuelvas?</h2><p>Ese es el punto de quiebre. Rachas, notificaciones y eventos por tiempo limitado existen porque alguien mide tu regreso.</p><div class="caso">Cero telemetría, cero cuenta, cero red. Nada registra si volviste, ni siquiera para ti.</div></div><div class="caja q"><span class="n" style="background:var(--a4)">4</span>
+<h2>¿Quién puede parar, y cuándo?</h2><p>Un objeto que se puede dejar a media frase respeta a quien lo usa. Uno que exige terminar, no.</p><div class="caso">Toda ruta se abandona sin aviso y sin penalización. El objeto lo dice en voz alta.</div></div><div class="caja q"><span class="n" style="background:var(--a5)">5</span>
+<h2>¿El objeto declara lo que NO puede hacer?</h2><p>Propuesta quinta pregunta. Declarar el límite desarma el mecanismo de promesa que sostiene el enganche.</p><div class="caso">Cada ficha imprime lo que la evidencia no respalda. La de juguetes dice que no sirve para concentrarse, y cita por qué.</div></div>
+<p class="mono">EL MISMO MECANISMO, DOS VECTORES</p>
+<div class="dos">
+ <div class="caja vs mala"><h3>AZAR QUE ENGANCHA</h3><ul>
+  <li>La probabilidad se ajusta para retenerte</li>
+  <li>Hay premios raros y premios comunes</li>
+  <li>El premio se cambia por otra cosa</li>
+  <li>Perder la racha cuesta</li>
+  <li>Eventos por tiempo limitado</li></ul></div>
+ <div class="caja vs buena"><h3>AZAR QUE ACOMPAÑA</h3><ul>
+  <li>La probabilidad se publica y no se mueve</li>
+  <li>Todo lo que existe puede salir hoy</li>
+  <li>El premio ES el contenido</li>
+  <li>No hay racha que perder</li>
+  <li>Nada caduca</li></ul></div>
+</div>
+<div class="caja"><h2>El caso insignia</h2>
+<p style="margin-top:8px;color:var(--dim);font-weight:600">Un corazón que suelta una frase
+con probabilidad fija y publicada. Tiene las tres marcas de una tragamonedas —refuerzo de
+razón variable, feedback inmediato, brillo— y ninguna de sus consecuencias: no hay conducta
+que condicionar, el premio es el contenido, y el diseño no obtiene nada porque no hay
+telemetría, cuenta ni red. El objeto lo explica desde dentro, mientras juegas.</p></div>
+<footer>
+<p><b>Marco:</b> Caillois (paidia/ludus, agôn·alea·mimicry·ilinx) · Consalvo (2009) sobre la
+porosidad del círculo mágico · Deterding et al. (2011) · Bogost · Nicholson.
+Investigación doctoral en curso, Artes y Diseño, UNAM FAD.</p>
+<p style="margin-top:10px"><b>Documento vivo:</b> este kit resume un argumento en desarrollo.
+Las definiciones pueden cambiar; los prototipos son la evidencia.</p>
+<div class="pie-l">
+ <a href="../mapa-h06/">MAPA H.06 →</a>
+ <a href="../">EL TARJETERO →</a>
+ <a href="https://jacintoquesnel.github.io/">jacintoquesnel.github.io →</a>
+</div>
+<p style="margin-top:12px" class="mono">JACINTO QUESNEL ÁLVAREZ · CC BY 4.0 · 2026</p>
+</footer>
+</div></body></html>
