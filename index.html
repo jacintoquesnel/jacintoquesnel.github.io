@@ -48,6 +48,30 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+[
+ {"@context":"https://schema.org","@type":"VideoGame",
+  "name":"MAPA H.06",
+  "url":"https://jacintoquesnel.github.io/mapa-h06/",
+  "author":{"@type":"Person","name":"Jacinto Quesnel Alvarez","url":"https://jacintoquesnel.github.io/"},
+  "inLanguage":["es","en"],
+  "gamePlatform":"Web browser","applicationCategory":"Game","operatingSystem":"Any",
+  "creativeWorkStatus":"Beta",
+  "license":"https://creativecommons.org/licenses/by/4.0/",
+  "isAccessibleForFree":true,
+  "description":"Una enciclopedia que se juega: siete cartuchos en un solo archivo HTML, sin internet, sin cuenta y sin telemetria."},
+ {"@context":"https://schema.org","@type":"WebApplication",
+  "name":"EL TARJETERO",
+  "url":"https://jacintoquesnel.github.io/el-tarjetero/",
+  "author":{"@type":"Person","name":"Jacinto Quesnel Alvarez","url":"https://jacintoquesnel.github.io/"},
+  "inLanguage":"es",
+  "applicationCategory":"HealthApplication","browserRequirements":"Any modern browser","operatingSystem":"Any",
+  "creativeWorkStatus":"Beta",
+  "license":"https://creativecommons.org/licenses/by/4.0/",
+  "isAccessibleForFree":true,
+  "description":"Primeros auxilios emocionales en un archivo HTML: botiquines EN CASO DE con telefonos verificados y lo que la evidencia no respalda, dicho por escrito. No sustituye terapia."}
+]
+</script>
 </head>
 <body>
 <style>
@@ -74,6 +98,9 @@
   --hueso:rgba(26,26,26,.14);
 
   --rojo:#FF2E17;      /* software · restricción */
+  --rojo-hondo:#DA0000;/* la misma idea, para la plasta que lleva crema encima:
+                          crema sobre #FF2E17 mide 3.20:1 y AA pide 4.5;
+                          sobre este mide 4.55. El acento fino sigue siendo --rojo. */
   --cian:#00E8F0;      /* juego · libertad */
   --acido:#D8E600;     /* paidia · metapoiesis */
   --volt:#CCFF00;      /* portada */
@@ -155,7 +182,7 @@ p{margin:0 0 1.05rem; max-width:var(--medida)}
 /* ---------- LAS DOS PLASTAS ---------- */
 .plasta{border-top:none}
 .p-volt{background:var(--volt); color:var(--tinta)}
-.p-rojo{background:var(--rojo); color:var(--crema)}
+.p-rojo{background:var(--rojo-hondo); color:var(--crema)}
 .p-volt .etiqueta,.p-rojo .etiqueta{color:inherit; opacity:.72}
 .p-volt .etiqueta::before{background:var(--tinta)}
 .p-rojo .etiqueta::before{background:var(--crema)}
@@ -232,6 +259,25 @@ p{margin:0 0 1.05rem; max-width:var(--medida)}
   border-bottom:4px solid var(--acento); padding-bottom:.35rem; margin-bottom:.5rem;
 }
 .cifra span{display:block; font-size:.82rem; line-height:1.32; color:var(--gris)}
+
+/* ---------- juégala: la liga a la obra, ya que está en línea (2026-08) ----------
+   Anatomía de la casa: subrayado del acento, blanco táctil de 44 px y foco
+   visible. No mete color nuevo: usa --acento, que la sección ya define. */
+.jugar{
+  display:inline-flex; align-items:center; gap:.55rem; flex-wrap:wrap;
+  min-height:44px; margin-top:.6rem;
+  font-family:Syne,sans-serif; font-weight:800; font-size:.94rem;
+  text-decoration:none; color:var(--sobre-papel);
+  box-shadow:inset 0 -3px 0 var(--acento);
+  transition:box-shadow .18s cubic-bezier(.22,1,.36,1);
+}
+.jugar:hover,.jugar:focus-visible{box-shadow:inset 0 -6px 0 var(--acento)}
+.jugar:focus-visible{outline:2px solid var(--linea); outline-offset:3px}
+.jugar .tag{
+  font-family:Inter,sans-serif; font-weight:700; font-size:.64rem; letter-spacing:.16em;
+  padding:.1rem .4rem; border:2px solid currentColor; color:var(--gris);
+  box-shadow:none;
+}
 
 /* ---------- contacto ---------- */
 .ligas{list-style:none; padding:0; margin:1.8rem 0 0; display:grid; gap:0; max-width:34rem}
@@ -338,6 +384,7 @@ p{margin:0 0 1.05rem; max-width:var(--medida)}
       <div class="acciones">
         <a class="btn" href="https://wa.me/525540455114?text=Hi%20Jaci%2C%20I%20found%20you%20on%20your%20page.%20I%27m%20interested%20in%3A%20keynote%20%2F%20consulting%20%2F%20training%20%2F%20curating%20%2F%20artwork" data-es="Escríbeme" data-en="Get in touch">Get in touch</a>
         <a class="btn btn-2" href="https://www.linkedin.com/in/jacintoquesnel/" data-es="LinkedIn" data-en="LinkedIn">LinkedIn</a>
+        <a class="btn btn-2" href="#obra" data-es="Juega mi obra" data-en="Play my work">Play my work</a>
       </div>
     </div>
   </div>
@@ -403,7 +450,7 @@ p{margin:0 0 1.05rem; max-width:var(--medida)}
 </section>
 
 <!-- ============ OBRA ============ -->
-<section class="sec a-acido">
+<section class="sec a-acido" id="obra">
   <div class="rej">
     <p class="etiqueta" data-es="Obra" data-en="Work">Work</p>
     <div class="cont">
@@ -412,11 +459,13 @@ p{margin:0 0 1.05rem; max-width:var(--medida)}
         <li class="marcada"><h3>MAPA H.06</h3>
           <p data-es="Una enciclopedia que se juega. Cabe en un solo archivo, funciona sin internet y no hace una sola llamada de red: 673 entradas conectadas entre sí, en español e inglés, y siete videojuegos cortos alrededor."
              data-en="An encyclopedia you play. It fits in a single file, works with no internet and makes zero network calls: 673 interlinked entries in Spanish and English, with seven short games around them.">An encyclopedia you play. It fits in a single file, works with no internet and makes zero network calls: 673 interlinked entries in Spanish and English, with seven short games around them.</p>
-          <span class="pie" data-es="Centro de Cultura Digital · CC BY 4.0 + MIT · en producción" data-en="Centro de Cultura Digital · CC BY 4.0 + MIT · in production">Centro de Cultura Digital · CC BY 4.0 + MIT · in production</span></li>
+          <span class="pie" data-es="Centro de Cultura Digital · CC BY 4.0 + MIT · en producción" data-en="Centro de Cultura Digital · CC BY 4.0 + MIT · in production">Centro de Cultura Digital · CC BY 4.0 + MIT · in production</span>
+          <a class="jugar" href="/mapa-h06/"><span data-es="Juégala en el navegador →" data-en="Play it in the browser →">Play it in the browser →</span><span class="tag">BETA</span></a></li>
         <li class="marcada"><h3>EL TARJETERO</h3>
-          <p data-es="Primeros auxilios emocionales en un archivo que cabe en un mensaje: 27 fichas, 1 307 frases con respaldo, 505 entradas de referencia y 180 DOI. Sin cuenta, sin telemetría, sin rachas."
-             data-en="Emotional first aid in a file that fits in a message: 27 cards, 1,307 sourced lines, 505 reference entries and 180 DOIs. No account, no telemetry, no streaks.">Emotional first aid in a file that fits in a message: 27 cards, 1,307 sourced lines, 505 reference entries and 180 DOIs. No account, no telemetry, no streaks.</p>
-          <span class="pie" data-es="Prototipo de investigación · 2026" data-en="Research prototype · 2026">Research prototype · 2026</span></li>
+          <p data-es="Primeros auxilios emocionales en un archivo que cabe en un mensaje: 29 fichas, 1 391 frases con respaldo, 562 entradas de referencia y 225 DOI. Sin cuenta, sin telemetría, sin rachas."
+             data-en="Emotional first aid in a file that fits in a message: 29 cards, 1,391 sourced lines, 562 reference entries and 225 DOIs. No account, no telemetry, no streaks.">Emotional first aid in a file that fits in a message: 29 cards, 1,391 sourced lines, 562 reference entries and 225 DOIs. No account, no telemetry, no streaks.</p>
+          <span class="pie" data-es="Prototipo de investigación · 2026" data-en="Research prototype · 2026">Research prototype · 2026</span>
+          <a class="jugar" href="/el-tarjetero/"><span data-es="Ábrelo en el navegador →" data-en="Open it in the browser →">Open it in the browser →</span><span class="tag">BETA</span></a></li>
         <li class="marcada"><h3>NIDOS IMPROPIOS</h3>
           <p data-es="Pintura: acrílico sobre papel y superficie reflectante, con capas reactivas a luz UV. Dentro de Proyecto Chata, mi práctica plástica con Ramsés Olaya."
              data-en="Painting: acrylic on paper and reflective surface, with UV-reactive layers. Within Proyecto Chata, my studio practice with Ramsés Olaya.">Painting: acrylic on paper and reflective surface, with UV-reactive layers. Within Proyecto Chata, my studio practice with Ramsés Olaya.</p>
