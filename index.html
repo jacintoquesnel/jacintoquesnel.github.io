@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://jacintoquesnel.github.io/">
 <meta property="og:image" content="https://jacintoquesnel.github.io/retrato.jpg">
 <meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="1600">
+<meta property="og:image:height" content="1200">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="es_MX">
 <meta name="twitter:card" content="summary_large_image">
@@ -111,11 +111,16 @@ a{color:inherit}
   .rej{grid-template-columns:9.5rem 1fr; gap:0 3.2rem; align-items:start}
 }
 .etiqueta{
-  font-family:Inter,sans-serif; font-weight:700; font-size:.72rem;
+  position:relative; font-family:Inter,sans-serif; font-weight:700; font-size:.72rem;
   letter-spacing:.2em; text-transform:uppercase; color:var(--gris);
-  border-left:4px solid var(--acento); padding-left:.75rem;
-  margin:0; line-height:1.35;
+  padding-left:.75rem; margin:0; line-height:1.35;
 }
+.etiqueta::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:4px;
+  background:var(--acento); transform:scaleY(0); transform-origin:top;
+  transition:transform .5s cubic-bezier(.22,1,.36,1) .1s;
+}
+.visto .etiqueta::before,.etiqueta.visto::before{transform:scaleY(1)}
 .cont{min-width:0}
 .cont > :first-child{margin-top:0}
 
@@ -152,8 +157,8 @@ p{margin:0 0 1.05rem; max-width:var(--medida)}
 .p-volt{background:var(--volt); color:var(--tinta)}
 .p-rojo{background:var(--rojo); color:var(--crema)}
 .p-volt .etiqueta,.p-rojo .etiqueta{color:inherit; opacity:.72}
-.p-volt .etiqueta{border-left-color:var(--tinta)}
-.p-rojo .etiqueta{border-left-color:var(--crema)}
+.p-volt .etiqueta::before{background:var(--tinta)}
+.p-rojo .etiqueta::before{background:var(--crema)}
 .p-rojo .apunte{color:var(--crema); opacity:.8}
 
 /* ---------- portada ---------- */
@@ -257,7 +262,59 @@ p{margin:0 0 1.05rem; max-width:var(--medida)}
 .pie{padding:2.4rem var(--canal) 3.2rem; border-top:1px solid var(--hueso)}
 .pie p{font-size:.82rem; line-height:1.6; color:var(--gris); max-width:40rem; margin:0 0 .5rem}
 
-@media (prefers-reduced-motion:reduce){ *{transition-duration:.01ms !important} }
+
+/* ============================================================
+   MOVIMIENTO — un solo momento orquestado en la portada,
+   y de ahí en adelante revelado constante y feedback al tacto.
+   Todo se apaga con prefers-reduced-motion.
+   ============================================================ */
+.rev{opacity:0; transform:translateY(18px)}
+.mov .rev{transition:opacity .55s ease, transform .6s cubic-bezier(.22,1,.36,1)}
+.rev.visto{opacity:1; transform:none}
+
+/* portada: el nombre entra con golpe y rebote (anticipación Imaishi) */
+.mov .portada h1{opacity:0; transform:translateY(26px) scale(.93)}
+.mov.cargado .portada h1{
+  opacity:1; transform:none;
+  transition:opacity .45s ease .05s, transform .7s cubic-bezier(.18,1.5,.36,1) .05s;
+}
+.mov .portada .retrato{opacity:0; transform:scale(1.03)}
+.mov.cargado .portada .retrato{opacity:1; transform:none; transition:opacity .6s ease, transform .8s cubic-bezier(.22,1,.36,1)}
+
+/* la barra de cada cifra se dibuja de izquierda a derecha */
+.cifra b{border-bottom:none; position:relative}
+.cifra b::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:4px;
+  background:var(--acento); transform:scaleX(0); transform-origin:left;
+}
+.mov .cifra b::after{transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.visto .cifra b::after,.cifra.visto b::after{transform:scaleX(1)}
+
+/* feedback al pasar el dedo o el cursor */
+.lista > li{transition:transform .2s ease, border-color .2s ease}
+.lista > li:hover,.lista > li:focus-within{transform:translateX(4px); border-left-color:var(--acento)}
+.hitos li{transition:transform .2s ease}
+.hitos li:hover{transform:translateX(3px)}
+.ligas a{position:relative; transition:transform .18s ease}
+.ligas a::after{
+  content:"\2192"; position:absolute; right:-.1rem; opacity:0;
+  transform:translateX(-8px); transition:opacity .2s ease, transform .2s ease;
+  font-weight:700;
+}
+.ligas a:hover,.ligas a:focus-visible{transform:translateX(3px)}
+.ligas a:hover small,.ligas a:focus-visible small{opacity:0; transition:opacity .15s ease}
+.ligas a:hover::after,.ligas a:focus-visible::after{opacity:1; transform:translateX(0)}
+.btn:active{transform:translateY(2px) scale(.97)}
+
+/* el cambio de idioma se ve: parpadeo corto para que se note qué cambió */
+.mov .cambiando .cont,.mov .cambiando.cont{opacity:.35; transition:opacity .12s ease}
+
+@media (prefers-reduced-motion:reduce){
+  .rev,.mov .rev,.portada h1,.portada .retrato{opacity:1 !important; transform:none !important}
+  .cifra b::after{transform:scaleX(1) !important}
+  *{transition-duration:.01ms !important; animation-duration:.01ms !important}
+}
+
 </style>
 
 <div class="barra">
@@ -294,7 +351,7 @@ p{margin:0 0 1.05rem; max-width:var(--medida)}
       <div class="cifras">
         <div class="cifra"><b>#1</b><span data-es="en México: la licenciatura que dirigí, en su ranking internacional" data-en="in Mexico: the degree program I directed, in its international ranking">in Mexico: the degree program I directed, in its international ranking</span></div>
         <div class="cifra"><b>#35</b><span data-es="del mundo, ese mismo programa (Animation Career Review, 2024–2025)" data-en="worldwide, that same program (Animation Career Review, 2024–2025)">worldwide, that same program (Animation Career Review, 2024–2025)</span></div>
-        <div class="cifra"><b>3.ª</b><span data-es="sede más grande del planeta en Global Game Jam 2018, y la mayor de habla hispana registrada" data-en="biggest Global Game Jam 2018 site on the planet, and the largest Spanish-speaking one on record">biggest Global Game Jam 2018 site on the planet, and the largest Spanish-speaking one on record</span></div>
+        <div class="cifra"><b data-es="3.ª" data-en="3rd">3rd</b><span data-es="sede más grande del planeta en Global Game Jam 2018, y la mayor de habla hispana registrada" data-en="biggest Global Game Jam 2018 site on the planet, and the largest Spanish-speaking one on record">biggest Global Game Jam 2018 site on the planet, and the largest Spanish-speaking one on record</span></div>
         <div class="cifra"><b>20</b><span data-es="años dando clase, de la UNAM al Tecnológico de Monterrey" data-en="years teaching, from UNAM to Tecnológico de Monterrey">years teaching, from UNAM to Tecnológico de Monterrey</span></div>
       </div>
     </div>
@@ -474,6 +531,9 @@ p{margin:0 0 1.05rem; max-width:var(--medida)}
   }
   window.L = function(l){
     if(LENGUAS.indexOf(l) === -1) return;
+    var cs = document.querySelectorAll(".cont");
+    cs.forEach(function(c){ c.classList.add("cambiando"); });
+    setTimeout(function(){ cs.forEach(function(c){ c.classList.remove("cambiando"); }); }, 130);
     pinta(l);
     try{ localStorage.setItem("qsnl_lengua", l); }catch(e){}
   };
@@ -484,6 +544,39 @@ p{margin:0 0 1.05rem; max-width:var(--medida)}
     g = (LENGUAS.indexOf(nav) !== -1) ? nav : "en";
   }
   pinta(g);
+
+  // ---------- movimiento ----------
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(!reduce){
+    document.documentElement.classList.add("mov");
+    // el nombre y el retrato entran cuando ya hay tipografia real
+    var arranca = function(){ document.documentElement.classList.add("cargado"); };
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(arranca); setTimeout(arranca, 1200); }
+    else { setTimeout(arranca, 120); }
+
+    // revelado por seccion, con escalonado dentro de cada lista
+    var piezas = [];
+    document.querySelectorAll(".sec").forEach(function(s){
+      var hijos = s.querySelectorAll(".cont > *, .lista > li, .hitos li, .cifra");
+      piezas.push({raiz:s, hijos:hijos});
+      hijos.forEach(function(h){ h.classList.add("rev"); });
+    });
+    var obs = new IntersectionObserver(function(entradas){
+      entradas.forEach(function(e){
+        if(!e.isIntersecting) return;
+        e.target.classList.add("visto");
+        var grupo = piezas.filter(function(p){ return p.raiz === e.target; })[0];
+        if(grupo){
+          Array.prototype.forEach.call(grupo.hijos, function(h,i){
+            h.style.transitionDelay = Math.min(i*55, 400) + "ms";
+            h.classList.add("visto");
+          });
+        }
+        obs.unobserve(e.target);
+      });
+    }, {rootMargin:"0px 0px -12% 0px", threshold:0.08});
+    document.querySelectorAll(".sec").forEach(function(s){ obs.observe(s); });
+  }
 })();
 </script>
 
